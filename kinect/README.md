@@ -34,7 +34,7 @@ def colorize(
     	image: np.ndarray,
     	clipping_range: Tuple[Optional[int], Optional[int]] = (None, None),
     	colormap: int = cv2.COLORMAP_HSV,
-) -> np.ndarray:
+	) -> np.ndarray:
 	if clipping_range[0] or clipping_range[1]:
     	  img = image.clip(clipping_range[0], clipping_range[1])
 	else:
