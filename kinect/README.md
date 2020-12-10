@@ -1,13 +1,8 @@
-# Тестовое задание Backend Developer(Python) #
+# <p align="center">Тестовое задание Backend Developer(Python)</p>
 
-## Уровень - Junior ##
+## <p align="center">Уровень Junior</p> 
 
-						
-### <div style="text-align:center">Введение</div>
-
-<p style="text-align: center;">Centered text</p>
-<p style="text-align: center;">и </p>
-<p align="center">centered text</p>
+### <p align="center">Введение</p>
 
 Microsoft Azure Kinect это устройство содержащее в себе несколько камер, микрофонов и датчиков. Это решение все-в-одном предназначенное в частности для робототехники. Устройство умеет вещать все эти данные через USB интерфейс. Для работы с ним создан сдк -  Azure Kinect DK . В комплекте сдк есть тулза позволяющая сохранить поток с камер и датчиков в MKV файл. При записи в MKV файл можно указывать какие данные записыватьа какие нет.
 
