@@ -12,7 +12,7 @@ Microsoft Azure Kinect это устройство содержащее в се�
 Ссылки
 
 MKV файлы и примеры полученных изображений.
-https://yadi.sk/d/fG9rvm5mlKHwEQ?w=1
+<https://yadi.sk/d/fG9rvm5mlKHwEQ?w=1>
 Задача.
 
 Необходим скрипт генерирующий набор превьюшек(изображений) для MKV файла. На входе мы задаем ему путь к MKV файлу и папке результатов. Скрипт генерит в заданой папке 10 картинок из кадров равномерно разбросанных по MKV файлу(т.е. если файл длительностью 18 секунд то это 0, 2, 4, .. 18 секунда).
@@ -23,38 +23,38 @@ https://yadi.sk/d/fG9rvm5mlKHwEQ?w=1
 Дополнительно есть  опциональный переключатель позволяющий осуществлять преобразование картинок в пространство другой камеры(depth, color).
 Пример вызова:
 
-python thumbs.py --channel=color --transform=depth SOME.MKV /tmp/output 
+	python thumbs.py --channel=color --transform=depth SOME.MKV /tmp/output 
 
 Технические подсказки
 Как работать с PyK4A смотри в их примерах на гитхабе.
 Карта глубины и инфракрасное изображение будет выдаваться в виде numpy array(unsigned int).
 В общем случае большинство значение там будет сильно ниже 65000 (максимум, белый цвет) поэтому можно отрезать эту часть цветов, нормализировать оставшиеся в диапазон 0..255 и "раскрасить" разными цветами. Вот готовый сниппет:
 
-def colorize(
-    	image: np.ndarray,
-    	clipping_range: Tuple[Optional[int], Optional[int]] = (None, None),
-    	colormap: int = cv2.COLORMAP_HSV,
+	def colorize(
+    		image: np.ndarray,
+    		clipping_range: Tuple[Optional[int], Optional[int]] = (None, None),
+    		colormap: int = cv2.COLORMAP_HSV,
 	) -> np.ndarray:
-	if clipping_range[0] or clipping_range[1]:
-    	  img = image.clip(clipping_range[0], clipping_range[1])
-	else:
-    	  img = image.copy()
+		if clipping_range[0] or clipping_range[1]:
+    	  		img = image.clip(clipping_range[0], clipping_range[1])
+		else:
+    	  		img = image.copy()
 
-	img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+		img = cv2.normalize(img, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_8U)
 
-	clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(16, 16))
-	img = clahe.apply(img)
+		clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(16, 16))
+		img = clahe.apply(img)
 
-	img = cv2.applyColorMap(img, colormap)
-	return img
+		img = cv2.applyColorMap(img, colormap)
+		return img
 
 
 У PyK4A есть метод для преобразования изображений в пространство друг-друга. Метод который преобразовывает color2depth требует чтобы исходное цветное изображение было в RGBA формате но в MKV используется MJPEG для цветного потока. Следующий сниппет поможет вам преобразовать MJPEG в RGBA:
 
 
-rgb_image = cv2.imdecode(mjpeg_image, cv2.IMREAD_UNCHANGED)
+	rgb_image = cv2.imdecode(mjpeg_image, cv2.IMREAD_UNCHANGED)
 
-rgba_image = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2RGBA)
+	rgba_image = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2RGBA)
 
 В текущей версии PyK4A есть небольшой баг который может не дать использовать проперти типа capture.transformed_depth. Нужно использовать функционал трансформации вручную либо взять мастер версию из репозитория. 
 
