@@ -22,6 +22,7 @@ https://yadi.sk/d/fG9rvm5mlKHwEQ?w=1
 карта глубины 
 Дополнительно есть  опциональный переключатель позволяющий осуществлять преобразование картинок в пространство другой камеры(depth, color).
 Пример вызова:
+
 python thumbs.py --channel=color --transform=depth SOME.MKV /tmp/output 
 
 Технические подсказки
