@@ -52,6 +52,7 @@ def colorize(
 
 
 rgb_image = cv2.imdecode(mjpeg_image, cv2.IMREAD_UNCHANGED)
+
 rgba_image = cv2.cvtColor(rgb_image, cv2.COLOR_RGB2RGBA)
 
 В текущей версии PyK4A есть небольшой баг который может не дать использовать проперти типа capture.transformed_depth. Нужно использовать функционал трансформации вручную либо взять мастер версию из репозитория. 
